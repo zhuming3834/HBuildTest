@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/app.css" />
+		<style>
+			html,body {
+				background-color: #efeff4;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<style>
+		#detail{
+			/*margin-top: 44px;*/
+			width: 100%;
+			height: auto;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav black">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="detail-title"></h1>
+		</header>
+		<div class="mui-content iframe">
+			<iframe id="detail"  frameborder="0" scrolling="no"></iframe>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.plusReady(function() {
+			var self = plus.webview.currentWebview(); 
+			document.getElementById('detail-title').innerText = self.detailTitle;
+			var ifa = document.getElementById('detail');
+			var QRUrl = self.detailUrl;
+			ifa.src = QRUrl;
+			console.log(QRUrl);
+		});
+	</script>
+</html>
