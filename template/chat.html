@@ -119,6 +119,7 @@
 	<script type="text/javascript" charset="utf-8">
 	var pageIndex = 1;  // 页数
 	var allPages = 1;   // 总页数
+	var revData = null; // 缓存数据
 	/*showAPI配置参数*/
 	var appid = "19297"
     var sign = "56743e56cce6482eb499e0abb79a0c78"
@@ -154,7 +155,11 @@
 			pageIndex = 1;
 			console.log('下拉刷新');
 			setTimeout(function() {
-				getaData();
+				if (revData == null) {
+					getaData();
+				} else{
+					showCacheData(revData)
+				}
 				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
 				mui('#pullrefresh').pullRefresh().refresh(true);
 			}, 1000);
@@ -199,7 +204,6 @@
 					timeout: 10000,
 					beforeSend: function(data) {
 						plus.nativeUI.showWaiting(); 
-						mui.toast();
 					},
 					success: function(data) {
 						plus.nativeUI.closeWaiting();  
@@ -212,6 +216,7 @@
 								table.innerHTML = '';
 							}
 							allPages = dice2.allPages;
+							revData = dice2.contentlist;
 							mui.each(dice2.contentlist, function(index, item) {
 								var li = document.createElement('li');
 								li.url = item.url; /*详情url*/
@@ -243,7 +248,27 @@
 					}
 				});
 			});
-		}	
+		}		
+		// 显示缓存数据
+		function showCacheData(rData){
+			mui.each(rData, function(index, item) {
+				var li = document.createElement('li');
+				li.url = item.url; /*详情url*/
+				li.title = item.title; /*详情标题*/
+				li.className = 'tableView-cell'; 			
+				li.innerHTML = '<div class="head-part">'
+				+ '<img src="' + item.userLogo + '"/ id="headImage">'
+				+ '<div class="about-auther">'
+				+ '<div id="auther">'
+				+ item.userName 
+				+ '<span class="about-type">' + item.typeName + '</span></div><div id="currentDate">'
+				+ item.date + '</div></div></div><div id="titleConcent">'
+				+ '<img src=" '+ item.contentImg + '" id="mainImage"/><div id="titleConcent1">'
+				+ item.title + '</div></div>';					
+				table.appendChild(li, table.firstChild);
+			});
+		}
+		
 		// 获取当前时间 yyyyMMddHHmmss
 		function getDataStr(){
 			var date = new Date();
@@ -268,18 +293,24 @@
 			mui.openWindow({
 				url: 'detail.html',
 				id: 'detail',
-				show: {
-					duration: 200,
-				},
-				waiting: {
-					autoShow: true
-				},
 				extras: {
 					detailUrl: this.url,
 					detailTitle: this.title
 				},
 			});
 		});		
+		
+	function showUpdate(){
+		if (update == 1) { /*服务器有更新数据或者第一次请求update=1*/
+			// 显示网路数据
+		} else{ /*服务器没有数据更新*/
+			if (revData == null) { /*没有缓存*/
+				// 显示网络数据
+			} else{ /*有缓存*/
+				//显示缓存数据
+			}
+		}
+	}
 		
 		
 	</script>

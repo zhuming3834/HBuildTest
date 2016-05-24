@@ -189,5 +189,64 @@
 				}
 			}
 		}
+	},
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"template/about.html"
+				],
+				"refer": [
+					"template/setting.html",
+					"template/contact.html",
+					"template/chat.html"
+				],
+				"priority": 0
+			},
+			"template/contact.html": {
+				"resources": [
+					"images/60x60.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/chat.html": {
+				"resources": [
+					"js/mui.js",
+					"css/mui.min.css"
+				],
+				"refer": [
+					"template/detail.html"
+				],
+				"priority": 0
+			},
+			"template/detail.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"images/cbd.jpg",
+				"images/qrcode.png",
+				"效果图/HTML5.gif",
+				"images/yuantiao.jpg",
+				"images/logo.png",
+				"images/muwu.jpg",
+				"images/shuijiao.jpg",
+				"css/mui.css",
+				"images/login-1.png",
+				"效果图/HTML5-上下拉.gif",
+				"images/iconfont-tianjia.png"
+			]
+		}
 	}
 }
