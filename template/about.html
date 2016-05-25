@@ -8,15 +8,25 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<link rel="stylesheet" href="../css/mui.min.css">
 		<link rel="stylesheet" href="../css/app.css" />
+		<link rel="stylesheet" href="../css/swiper-3.3.1.min.css" />
 		<style>
 			html,body {
 				background-color: #efeff4;
 			}
-			.title{
-				margin: 20px 15px 10px;
-				color: #6d6d72;
-				font-size: 15px;
+			.title a{
+				font-size: 14px;
+				color: black;
 			}
+			.swiper-container {
+				height: 180px;
+			}
+			.swiper-container img {
+				height: 180px;
+				width: 100%;
+			}
+			.swiper-pagination {
+				margin-bottom: 5px;
+			};
 		</style>
 	</head>
 	<body>
@@ -25,17 +35,161 @@
 		</header>
 		<div class="mui-content">
 			<div class="title">
-				<p>这是webview模式选项卡的第1个子页面</p>
-				<p>何谓webview模式？其实就是每个选项卡内容都是一个独立的webview，彼此之间互相独立、互不影响；
-					对于较为复杂的业务系统，推荐使用该模式。</p>
-				<p>基于webview模式的选项卡，支持原生加速的下拉刷新，点击第二个选项卡（“消息”），切换选项卡，体验下拉刷新；</p>
+				<a>HBuild自带轮播图样式</a>
 			</div>
+			<div id="slider" class="mui-slider" >
+				<div class="mui-slider-group mui-slider-loop">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/yuantiao.jpg">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/shuijiao.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/muwu.jpg">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/cbd.jpg">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../images/yuantiao.jpg">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../images/shuijiao.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<div class="title">
+				<a>http://www.swiper.com.cn/</a>
+			</div>
+			<div class="swiper-container">
+ 				 <div class="swiper-wrapper" id="swiperTest">
+   			 		<!--<div class="swiper-slide">
+   			 			<img src="../images/login-1.png" id="test"/>
+   			 		</div>
+   					 <div class="swiper-slide">
+   				 		<img src="../images/login-1.png"/>
+   					 </div>
+   			 		 <div class="swiper-slide">
+   			 			<img src="../images/login-1.png"/>
+   			 		 </div>-->
+ 				 </div>
+ 				 <div class="swiper-pagination"></div>
+			</div>
+		
 		</div>
 	</body>
 	<script src="../js/mui.min.js"></script>
+	<script src="../js/swiper-3.3.1.min.js" ></script>
+	<script src="../js/tools.js" ></script>
 	<script>
+		var slider = mui("#slider");
+		var swiperTest = null;
+		var banerArray = new Array();
+		
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
+		var slider = mui("#slider");
+		slider.slider({
+			interval: 500
+		});
+		/**/
+		mui.plusReady(function() {
+			swiperTest = document.getElementById('swiperTest');
+			getaData();
+		})
+		
+		// 获取数据
+		function getaData() {
+			var timestamp = getDataStr();
+			mui.plusReady(function() {
+				mui.ajax(baseUrl, {
+					data: {
+						key: '',
+						typeId: '',
+						showapi_appid: appid,
+						showapi_sign: sign,
+						showapi_timestamp: timestamp,
+						page:1
+					},
+					dataType: 'json',
+					type: 'post',  
+					timeout: 10000,
+					beforeSend: function(data) {
+						plus.nativeUI.showWaiting(); 
+					},
+					success: function(data) {
+						plus.nativeUI.closeWaiting();  
+						if (data.showapi_res_code == 0) {
+							console.log("成功");
+							var dice1 = data.showapi_res_body;
+							var dice2 = dice1.pagebean;
+							var swpier = '';
+							for (var i = 0;i < 5; i ++) {
+								var item = dice2.contentlist[i];
+								var temp =  '<div class="swiper-slide"><img src=" ' + item.contentImg + '" id="test' + i + '"/></div>';
+								swpier = swpier + temp;
+								banerArray.push(item);
+							}
+							swiperTest.innerHTML = swpier;
+							var mySwiper = new Swiper('.swiper-container', {
+								autoplay: 1000,/*自动播放时间间隔 单位ms*/
+								pagination : '.swiper-pagination', /*添加分页*/
+								loop: true, /*开启循环*/
+							})
+							/*轮播图页面跳转*/
+							mui.each(banerArray,function(index,item){
+								var imgID = 'test' + index;
+								document.getElementById(imgID).addEventListener('tap',function() {
+									mui.openWindow({
+										url: 'detail.html',
+										id: 'detail',
+										show: {
+											aniShow: 'slide-in-right' /*页面切换效果*/
+										},
+										extras: {
+											detailUrl: item.url,
+											detailTitle: item.title
+										},
+									});
+								})
+							})
+						}
+					},
+					error: function(xhr, type, errerThrown) {
+						mui.toast('网络异常,请稍候再试');
+						plus.nativeUI.closeWaiting();  
+					}
+				});
+			});
+		}		
+	
+	
+		
 	</script>
 </html>

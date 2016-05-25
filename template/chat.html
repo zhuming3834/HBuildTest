@@ -116,14 +116,13 @@
 		</div>		
 	</body>
 	<script src="../js/mui.js" ></script>
+	<script src="../js/tools.js" ></script>
 	<script type="text/javascript" charset="utf-8">
+	
 	var pageIndex = 1;  // 页数
 	var allPages = 1;   // 总页数
 	var revData = null; // 缓存数据
-	/*showAPI配置参数*/
-	var appid = "19297"
-    var sign = "56743e56cce6482eb499e0abb79a0c78"
-    var baseUrl = "https://route.showapi.com/582-2?"
+
 	var table = document.body.querySelector('.mui-table-view');
 	
 	(function($) {
@@ -269,22 +268,6 @@
 			});
 		}
 		
-		// 获取当前时间 yyyyMMddHHmmss
-		function getDataStr(){
-			var date = new Date();
-			var year = date.getFullYear();
-			var mouth = date.getMonth() + 1;
-			var day = date.getDate();
-			var hour = date.getHours();
-			var minute = date.getMinutes();
-			var second = date.getSeconds();
-			if(mouth < 10){ /*月份小于10  就在前面加个0*/
-				mouth = String(String(0) + String(mouth));
-			}
-			var currentDate = String(year) + String(mouth) + String(day) + String(hour) + String(minute) + String(second);
-			return currentDate;
-		}
-		
 		//链接批量处理 页面跳转  
 		var aniShow = "pop-in";
 		mui('.mui-content').on('tap', 'li', function() {  
@@ -293,6 +276,9 @@
 			mui.openWindow({
 				url: 'detail.html',
 				id: 'detail',
+				show: {
+					aniShow: 'slide-in-right' /*页面切换效果*/
+				},
 				extras: {
 					detailUrl: this.url,
 					detailTitle: this.title
