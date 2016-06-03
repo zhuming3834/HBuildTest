@@ -126,14 +126,14 @@
 	var table = document.body.querySelector('.mui-table-view');
 	
 	(function($) {
-			//阻尼系数
-			var deceleration = mui.os.ios ? 0.003 : 0.0009;
-			$('.mui-scroll-wrapper').scroll({
-				bounce: false,
-				indicators: true, //是否显示滚动条
-				deceleration: deceleration
-			});
-		})(mui);
+		//阻尼系数
+		var deceleration = mui.os.ios ? 0.003 : 0.0009;
+		$('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: true, //是否显示滚动条
+			deceleration: deceleration
+		});
+	})(mui);
 
 		mui.init({
 			pullRefresh: {
@@ -196,7 +196,7 @@
 						showapi_appid: appid,
 						showapi_sign: sign,
 						showapi_timestamp: timestamp,
-						page:pageIndex
+						page: ''
 					},
 					dataType: 'json',
 					type: 'post',  
@@ -205,6 +205,7 @@
 						plus.nativeUI.showWaiting(); 
 					},
 					success: function(data) {
+						console.log("success");
 						plus.nativeUI.closeWaiting();  
 						if (data.showapi_res_code == 0) {
 							console.log("成功");

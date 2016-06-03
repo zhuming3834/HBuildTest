@@ -18,6 +18,24 @@
 				color: #6d6d72;
 				font-size: 15px;
 			}
+			.userInfo {
+				background-color: white;
+				height: 80px;
+				width: 100%;
+			}
+			.userImage {
+				margin-top: 10px;
+				margin-left: 10px;
+				width: 60px;
+				height: 60px;
+				border-radius: 30px;
+			}
+			.appName{
+				height: 80px;
+				line-height: 80px;
+				position: absolute;
+				margin-left: 10px;
+			}
 		</style>
 	</head>
 
@@ -26,10 +44,11 @@
 			<h1 class="mui-title">设置</h1>
 		</header>
 		<div class="mui-content">
-			<div class="title">
-				这是webview模式选项卡中的第4个子页面，该页面展示一个常见的设置示例
+			<div class="userInfo" style="margin-top: 5px;">
+				<img src="../images/shuijiao.jpg" class="userImage" id="headImage">
+				<a class="appName">HBuildTest</a>
 			</div>
-			<ul class="mui-table-view">
+			<ul class="mui-table-view" style="margin-top: 25px;">
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">
 						新消息通知
@@ -65,14 +84,162 @@
 	</body>
 	<script src="../js/mui.min.js"></script>
 	<script>
+	var mainImage = document.getElementById('headImage');
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
+		
+		document.getElementById('headImage').addEventListener('tap', function() {
+			if (mui.os.plus) {
+				var a = [{
+					title: "拍照"
+				}, {
+					title: "从手机相册选择"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "修改用户头像",
+					cancel: "取消",
+					buttons: a
+				}, function(b) {
+					switch (b.index) {
+						case 0:
+							break;
+						case 1:
+							getImage();
+							break;
+						case 2:
+							galleryImg();
+							break;
+						default:
+							break;
+					}
+				})
+			}
+		}, false);
+		//拍照
+		function getImage() {
+			var c = plus.camera.getCamera();
+			c.captureImage(function(e) {
+				plus.io.resolveLocalFileSystemURL(e, function(entry) {
+					var s = entry.toLocalURL() + "?version=" + new Date().getTime();
+					uploadHead(s);
+				}, function(e) {
+					console.log("读取拍照文件错误：" + e.message);
+				});
+			}, function(s) {
+				console.log("error" + s);
+			}, {
+				filename: "_doc/head.png"
+			})
+		}
+		/*
+		 * 本地选择
+		 */
+		function galleryImg() {
+			plus.gallery.pick(function(a) {
+				plus.io.resolveLocalFileSystemURL(a, function(entry) {
+					plus.io.resolveLocalFileSystemURL("_doc/", function(root) {
+						root.getFile("head.png", {}, function(file) {
+							//文件已存在
+							file.remove(function() {
+								console.log("file remove success");
+								entry.copyTo(root, 'head.png', function(e) {
+										var e = e.fullPath + "?version=" + new Date().getTime();
+										uploadHead(e);
+										//变更大图预览的src
+										//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
+									},
+									function(e) {
+										console.log('copy image fail:' + e.message);
+									});
+							}, function() {
+								console.log("delete image fail:" + e.message);
+							});
+						}, function() {
+							//文件不存在
+							entry.copyTo(root, 'head.png', function(e) {
+									var path = e.fullPath + "?version=" + new Date().getTime();
+									uploadHead(path);
+								},
+								function(e) {
+									console.log('copy image fail:' + e.message);
+								});
+						});
+					}, function(e) {
+						console.log("get _www folder fail");
+					})
+				}, function(e) {
+					console.log("读取拍照文件错误：" + e.message);
+				});
+			}, function(a) {}, {
+				filter: "image"
+			})
+		};
+		
+		/*
+		 * 上传头像图片
+		 */
+		function uploadHead(imgPath) {
+			console.log("imgPath = " + imgPath);
+			mainImage.src = imgPath;
+			mainImage.style.width = "60px";
+			mainImage.style.height = "60px";
+			
+			var image = new Image();
+			image.src = imgPath;
+			image.onload = function() {
+				var imgData = getBase64Image(image);
+//				mui.ajax("图片上传接口", {
+//					data: {
+//						
+//					},
+//					dataType: 'json',
+//					type: 'post',
+//					timeout: 10000,
+//					success: function(data) {
+//						console.log('上传成功');
+//					},
+//					error: function(xhr, type, errorThrown) {
+//						mui.toast('网络异常，请稍后再试！');
+//					}
+//				});
+			}
+		}
+		/*
+		 * 将图片压缩转成base64
+		 */
+		function getBase64Image(img) {
+			var canvas = document.createElement("canvas");
+			var width = img.width;
+			var height = img.height;
+			// calculate the width and height, constraining the proportions
+			if (width > height) {
+				if (width > 100) {
+					height = Math.round(height *= 100 / width);
+					width = 100;
+				}
+			} else {
+				if (height > 100) {
+					width = Math.round(width *= 100 / height);
+					height = 100;
+				}
+			}
+			canvas.width = width;
+			canvas.height = height;
+			var ctx = canvas.getContext("2d");
+			ctx.drawImage(img, 0, 0, width, height);
+			var dataURL = canvas.toDataURL("image/png", 0.8);
+			return dataURL.replace("data:image/png;base64,", "");
+		}	
+		
+		
+		
 		document.getElementById("about").addEventListener('tap',function () {
 			//获得主页面的webview
 			var main = plus.webview.currentWebview().parent();
 			//触发主页面的gohome事件
 			mui.fire(main,'gohome');
 		});
+		
 	</script>
 </html>
