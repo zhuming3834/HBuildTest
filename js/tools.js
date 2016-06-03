@@ -16,7 +16,7 @@ function getDataStr(){
 	if(mouth < 10){ /*月份小于10  就在前面加个0*/
 		mouth = String(String(0) + String(mouth));
 	}
-	if(day < 10){ /*月份小于10  就在前面加个0*/
+	if(day < 10){ /*日期小于10  就在前面加个0*/
 		day = String(String(0) + String(day));
 	}
 	var currentDate = String(year) + String(mouth) + String(day) + String(hour) + String(minute) + String(second);

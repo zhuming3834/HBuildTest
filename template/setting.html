@@ -88,7 +88,7 @@
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
-		
+		/*点击头像触发*/
 		document.getElementById('headImage').addEventListener('tap', function() {
 			if (mui.os.plus) {
 				var a = [{
@@ -100,15 +100,15 @@
 					title: "修改用户头像",
 					cancel: "取消",
 					buttons: a
-				}, function(b) {
+				}, function(b) { /*actionSheet 按钮点击事件*/
 					switch (b.index) {
 						case 0:
 							break;
 						case 1:
-							getImage();
+							getImage(); /*拍照*/
 							break;
 						case 2:
-							galleryImg();
+							galleryImg();/*打开相册*/
 							break;
 						default:
 							break;
@@ -122,7 +122,7 @@
 			c.captureImage(function(e) {
 				plus.io.resolveLocalFileSystemURL(e, function(entry) {
 					var s = entry.toLocalURL() + "?version=" + new Date().getTime();
-					uploadHead(s);
+					uploadHead(s); /*上传图片*/
 				}, function(e) {
 					console.log("读取拍照文件错误：" + e.message);
 				});
@@ -132,9 +132,7 @@
 				filename: "_doc/head.png"
 			})
 		}
-		/*
-		 * 本地选择
-		 */
+		//本地相册选择
 		function galleryImg() {
 			plus.gallery.pick(function(a) {
 				plus.io.resolveLocalFileSystemURL(a, function(entry) {
@@ -145,7 +143,7 @@
 								console.log("file remove success");
 								entry.copyTo(root, 'head.png', function(e) {
 										var e = e.fullPath + "?version=" + new Date().getTime();
-										uploadHead(e);
+										uploadHead(e); /*上传图片*/
 										//变更大图预览的src
 										//目前仅有一张图片，暂时如此处理，后续需要通过标准组件实现
 									},
@@ -159,7 +157,7 @@
 							//文件不存在
 							entry.copyTo(root, 'head.png', function(e) {
 									var path = e.fullPath + "?version=" + new Date().getTime();
-									uploadHead(path);
+									uploadHead(path); /*上传图片*/
 								},
 								function(e) {
 									console.log('copy image fail:' + e.message);
@@ -176,9 +174,7 @@
 			})
 		};
 		
-		/*
-		 * 上传头像图片
-		 */
+		//上传头像图片
 		function uploadHead(imgPath) {
 			console.log("imgPath = " + imgPath);
 			mainImage.src = imgPath;
@@ -189,6 +185,7 @@
 			image.src = imgPath;
 			image.onload = function() {
 				var imgData = getBase64Image(image);
+				/*在这里调用上传接口*/
 //				mui.ajax("图片上传接口", {
 //					data: {
 //						
@@ -204,10 +201,8 @@
 //					}
 //				});
 			}
-		}
-		/*
-		 * 将图片压缩转成base64
-		 */
+	}
+		//将图片压缩转成base64
 		function getBase64Image(img) {
 			var canvas = document.createElement("canvas");
 			var width = img.width;
@@ -224,10 +219,10 @@
 					height = 100;
 				}
 			}
-			canvas.width = width;
-			canvas.height = height;
+			canvas.width = width;   /*设置新的图片的宽度*/
+			canvas.height = height; /*设置新的图片的长度*/
 			var ctx = canvas.getContext("2d");
-			ctx.drawImage(img, 0, 0, width, height);
+			ctx.drawImage(img, 0, 0, width, height); /*绘图*/
 			var dataURL = canvas.toDataURL("image/png", 0.8);
 			return dataURL.replace("data:image/png;base64,", "");
 		}	
