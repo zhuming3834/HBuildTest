@@ -16,6 +16,9 @@
 	"template/contact.html": {
 		"resources": [
 			"images/60x60.gif"
+		],
+		"refer": [
+			"template/imageView.html"
 		]
 	},
 	"template/chat.html": {
@@ -32,6 +35,24 @@
 			"js/mui.min.js",
 			"fonts/mui.ttf",
 			"css/mui.min.css"
+		]
+	},
+	"template/about.html": {
+		"resources": [
+			"js/tools.js",
+			"images/cbd.jpg",
+			"images/muwu.jpg",
+			"images/yuantiao.jpg",
+			"images/shuijiao.jpg",
+			"js/swiper-3.3.1.min.js",
+			"css/swiper-3.3.1.min.css"
+		]
+	},
+	"template/imageView.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"js/mui.previewimage.js",
+			"css/mui.css"
 		]
 	}
 }

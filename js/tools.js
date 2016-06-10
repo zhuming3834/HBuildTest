@@ -19,6 +19,13 @@ function getDataStr(){
 	if(day < 10){ /*日期小于10  就在前面加个0*/
 		day = String(String(0) + String(day));
 	}
+	if(minute < 10){ /*分小于10  就在前面加个0*/
+		minute = String(String(0) + String(minute));
+	}
+	if(second < 10){ /*秒小于10  就在前面加个0*/
+		second = String(String(0) + String(second));
+	}
+	
 	var currentDate = String(year) + String(mouth) + String(day) + String(hour) + String(minute) + String(second);
 	console.log('currentDate = ' + currentDate);
 	return currentDate;
