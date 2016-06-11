@@ -32,7 +32,7 @@
 					<a class="mui-navigate-right" id="imageView">图片预览</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">1</a>
+					<a class="mui-navigate-right" id="sjbd">事件绑定</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">2</a>
@@ -51,10 +51,25 @@
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
+		// 图片预览
 		document.getElementById('imageView').addEventListener('tap',function(){
 			mui.openWindow({
 				url:"imageView.html",
 				id:"imageView.html",
+			})
+		})
+		// 事件绑定
+		document.getElementById('sjbd').addEventListener('tap',function(){
+			var animationType = "zoom-out";//页面显示动画，默认为”slide-in-right“；
+			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
+			mui.openWindow({
+				url:"shijian.html",
+				id:"shijian.html",
+				show:{
+					autoShow:true,//页面loaded事件发生后自动显示，默认为true
+      				aniShow:animationType,
+     				duration:animationTime,
+				},
 			})
 		})
 		

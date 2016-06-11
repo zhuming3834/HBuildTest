@@ -19,6 +19,9 @@ function getDataStr(){
 	if(day < 10){ /*日期小于10  就在前面加个0*/
 		day = String(String(0) + String(day));
 	}
+	if(hour < 10){ /*时小于10  就在前面加个0*/
+		hour = String(String(0) + String(hour));
+	}
 	if(minute < 10){ /*分小于10  就在前面加个0*/
 		minute = String(String(0) + String(minute));
 	}

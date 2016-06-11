@@ -1,0 +1,94 @@
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.css" />
+		<!--App自定义的css-->
+		<style type="text/css">
+			
+			.mui-checkbox{
+				height: 44px;
+				background: white;
+				border-bottom-style: solid;
+				border-bottom-color: #F3F3F3;
+				border-bottom-width: 1px;
+			}
+			
+			.span {
+				float: right;
+				margin-right: 150px;
+				height: 44px;
+				line-height: 44px;
+			}
+			.checkbox {
+				margin-top: 5px;
+				margin-right: 200px;
+				height: 44px;
+				line-height: 44px;
+			}
+			.checkbox :before {
+				0px;
+			}
+			
+		</style>
+
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">事件绑定</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-checkbox">
+				<span class="span">我的id:1</span>
+				<input type="checkbox" class="checkbox" id="" value="" />
+			</div>
+			<div class="mui-checkbox">
+				<span class="span">我的id:2</span>
+				<input type="checkbox" class="checkbox" id="" value="" />
+			</div>
+			<div class="mui-checkbox">
+				<span class="span">我的id:3</span>
+				<input type="checkbox" class="checkbox" id="" value="" />
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.zoom.js">	</script>
+	<script src="../js/mui.previewimage.js"></script>
+	<script src="../js/tools.js" ></script>
+	<script>
+		
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+		mui.plusReady(function() {  
+//			getData();
+		})
+		
+		function getData() {
+			var content = document.body.querySelector('.mui-content');
+			content.innerHTML = ''; 
+			var count = Math.random()*10 | 0; // 获取0~10之间的整数
+			count = count + 1; // 1~11之间
+			console.log(count);
+			for (var index = 0; index < count; index ++ ) {
+				console.log(index);
+				var div = document.createElement('mui-checkbox');
+				div.innerHTML = '<span class="span">"我的id:"' + String(index) + '</span>'
+				              + '<input type="checkbox" class="checkbox" id="'+ String(index) +'" value="" />';
+				 content.appendChild(div,content.firstChild);    
+			}
+		} 
+		
+		
+	</script>
+</html>
