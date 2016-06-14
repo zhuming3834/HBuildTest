@@ -1,5 +1,4 @@
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<title>Hello MUI</title>
@@ -11,7 +10,6 @@
 		<link rel="stylesheet" href="../css/mui.css" />
 		<!--App自定义的css-->
 		<style type="text/css">
-			
 			.mui-checkbox{
 				height: 44px;
 				background: white;
@@ -19,7 +17,6 @@
 				border-bottom-color: #F3F3F3;
 				border-bottom-width: 1px;
 			}
-			
 			.span {
 				float: right;
 				margin-right: 150px;
@@ -34,12 +31,9 @@
 			}
 			.checkbox :before {
 				0px;
-			}
-			
+			}	
 		</style>
-
 	</head>
-
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
@@ -66,29 +60,50 @@
 	<script src="../js/tools.js" ></script>
 	<script>
 		
+		var checkDice = new Array();
+		
 		mui.init({
 			swipeBack:true //启用右滑关闭功能
 		});
 		
 		mui.plusReady(function() {  
-//			getData();
+			getData();
 		})
-		
+		// 数据处理
 		function getData() {
 			var content = document.body.querySelector('.mui-content');
 			content.innerHTML = ''; 
 			var count = Math.random()*10 | 0; // 获取0~10之间的整数
-			count = count + 1; // 1~11之间
+			count = count + 5; // 6~16之间
 			console.log(count);
 			for (var index = 0; index < count; index ++ ) {
-				console.log(index);
 				var div = document.createElement('mui-checkbox');
-				div.innerHTML = '<span class="span">"我的id:"' + String(index) + '</span>'
-				              + '<input type="checkbox" class="checkbox" id="'+ String(index) +'" value="" />';
-				 content.appendChild(div,content.firstChild);    
-			}
+				div.innerHTML = '<div class="mui-checkbox">' + '<span class="span">我的ID:' + index + '</span>' + '<input type="checkbox" class="checkbox" id="' + index +'" value="" /></div>';
+				content.appendChild(div,content.firstChild);    
+				checkDice[String(index)] = 'X';
+			} 
 		} 
-		
-		
+		// 事件绑定
+		mui('.mui-content').on('change','input',function(){
+			console.log("id = " + this.id + " status = " + this.checked);
+			if (this.checked) { 
+				checkDice[this.id] = this.id;
+			} else{
+				checkDice[this.id] = 'X';
+			}
+			console.log("checkDice = " + checkDice);
+			console.log('被选中的checkbox的ID是：',makeData(checkDice));
+		})
+		// 数据处理
+		function makeData(dice){
+			var result = '';
+			for (var key in dice) {
+				if (dice[key] != 'X') {
+					result = result + dice[key] + ',';
+				} 
+			}
+			// 去除字符串最后的','后返回
+			return result.substring(0,result.length - 1);
+		}
 	</script>
 </html>
