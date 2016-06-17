@@ -1,0 +1,189 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.css" />
+		<!--App自定义的css-->
+		<style type="text/css">
+			.share {
+				float: right;
+			}
+			.tip-title {
+				font-size: 20px;
+				color: blue;
+				padding-left: 10px;
+			}
+			.content {
+				padding-top: 5px;
+				padding-bottom: 10px;
+				padding-left: 10px;
+			}
+			.content span {
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class="share mui-icon mui-icon-redo" onclick="shareHref()"></a>
+			<h1 class="mui-title">第三方分享</h1>
+		</header>
+		<div class="mui-content">
+			<span class="tip-title">分享平台:</span><br>
+			<div class="content">
+				1.微信分享:微信好友/微信朋友圈 <br>
+				2.QQ分享 <br>
+				3.新浪微博分享 <br>
+			</div>
+			<span class="tip-title">注意事项:</span><br>
+			<div class="content">
+				<span>
+					微信分享图片大小不能超过32kb限制 <br>
+				</span>
+			</div>
+			<span class="tip-title">解决办法:</span><br>
+			<div class="content">
+				1.把分享的图片的url转换成图片对象image; <br>
+				2.把生成的图片对象image压缩后上传服务器返回新的图片的url; <br>
+				3.分享图片地址使用压缩上传后从服务器获取的url; <br>
+				或者：<br>
+				第一次服务器返回的图片的体积就是32kb以下的. <br>
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.zoom.js">	</script>
+	<script src="../js/mui.previewimage.js"></script>
+	<script src="../js/tools.js" ></script>
+	<script>
+		
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		
+		var Intent = null,
+			File = null,
+			Uri = null,
+			main = null;
+		var shares = null;
+		var shareImageUrl = '';
+		mui.plusReady(function() {  
+			updateSerivces();
+			if (plus.os.name == "Android") {
+				Intent = plus.android.importClass("android.content.Intent");
+				File = plus.android.importClass("java.io.File");
+				Uri = plus.android.importClass("android.net.Uri");
+				main = plus.android.runtimeMainActivity();
+			}
+		})
+		/**
+		 * 更新分享服务
+		 */
+		function updateSerivces() {
+			plus.share.getServices(function(s) {
+				shares = {};
+				for (var i in s) {
+					var t = s[i];
+					shares[t.id] = t;
+				}
+			 outSet("获取分享服务列表成功");
+			}, function(e) {
+				outSet("获取分享服务列表失败：" + e.message);
+			});
+		}
+		/**
+		 * 分享操作
+		 */
+		function shareAction(id, ex) {
+			console.log("掉起试图");
+			var s = null;
+			if (!id || !(s = shares[id])) {
+				outLine("无效的分享服务！");
+				return;
+			}
+			if (s.authenticated) {
+				outLine("---已授权---");
+				shareMessage(s, ex);
+			} else {
+				outLine("---未授权---");
+				s.authorize(function() {
+					shareMessage(s, ex);
+				}, function(e) {
+					outLine("认证授权失败");
+				});
+			}
+		}
+		/**
+		 * 发送分享消息
+		 */
+		function shareMessage(s, ex) {
+			var msg = {
+				content: '分享-详情',
+				href: 'http://blog.csdn.net/zhuming3834',
+				title: 'HGDQ-分享测试-title',
+				content: 'HGDQ-分享测试-content',
+				thumbs: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
+				pictures: ['http://img3.3lian.com/2013/v10/4/87.jpg'],
+				extra: {
+					scene: ex
+				}
+			};
+			s.send(msg, function() {
+				outLine("分享成功！ ");
+			}, function(e) {
+				outLine("分享失败");
+			});
+		}
+		/**
+		 * 分享按钮点击事件
+		 */
+		function shareHref() {
+			var ids = [{
+					id: "weixin", 
+					ex: "WXSceneSession"  /*微信好友*/
+				}, {
+					id: "weixin",
+					ex: "WXSceneTimeline" /*微信朋友圈*/
+				}, {
+					id: "qq"   /*QQ好友*/
+				},{
+					id: "sinaweibo"  /*新浪微博*/
+				}],
+				bts = [{
+					title: "发送给微信好友"
+				}, {
+					title: "分享到微信朋友圈"
+				}, {
+					title: "分享到QQ"
+				}, {
+					title: "分享到新浪微博"
+				}];
+			plus.nativeUI.actionSheet({
+					cancel: "取消",
+					buttons: bts
+				},
+				function(e) {
+					var i = e.index;
+					if (i > 0) {
+						shareAction(ids[i - 1].id, ids[i - 1].ex);
+					}
+				}
+			);
+		}		
+		// 控制台输出日志
+		function outSet(msg) {
+			console.log(msg);
+		}
+		// 界面弹出吐司提示
+		function outLine(msg) {
+			mui.toast(msg);
+		}
+	
+	</script>
+</html>
