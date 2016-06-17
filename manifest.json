@@ -106,8 +106,8 @@
 		"NativeObj": {
 			"description": "原生对象"
 		},
-		"OAuth": {},
-		"Payment": {},
+		
+		
 		"Share": {}
 	},
 	"plus": {
@@ -137,16 +137,10 @@
 					}
 				},
 				"payment": {
-					"weixin": {
-						"description": "微信支付",
-						"appid": "wx741484d992c17831"
-					}
+					
 				},
 				"oauth": {
-					"weixin": {
-						"appid": "wx741484d992c17831",
-						"appsecret": "d4d808b21c8446c18479a052a1a4bc57"
-					}
+					
 				}
 			},
 			"apple": {

@@ -92,7 +92,7 @@
 					var t = s[i];
 					shares[t.id] = t;
 				}
-			 outSet("获取分享服务列表成功");
+			 	outSet("获取分享服务列表成功");
 			}, function(e) {
 				outSet("获取分享服务列表失败：" + e.message);
 			});
@@ -101,17 +101,16 @@
 		 * 分享操作
 		 */
 		function shareAction(id, ex) {
-			console.log("掉起试图");
 			var s = null;
 			if (!id || !(s = shares[id])) {
 				outLine("无效的分享服务！");
 				return;
 			}
 			if (s.authenticated) {
-				outLine("---已授权---");
+				outSet("---已授权---");
 				shareMessage(s, ex);
 			} else {
-				outLine("---未授权---");
+				outSet("---未授权---");
 				s.authorize(function() {
 					shareMessage(s, ex);
 				}, function(e) {
@@ -135,9 +134,9 @@
 				}
 			};
 			s.send(msg, function() {
-				outLine("分享成功！ ");
+				outLine("分享成功!");
 			}, function(e) {
-				outLine("分享失败");
+				outLine("分享失败!");
 			});
 		}
 		/**
