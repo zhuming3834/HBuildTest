@@ -38,7 +38,7 @@
 					<a class="mui-navigate-right" id="dsffx">第三方分享</a>
 				</li>
 				<li class="mui-table-view-cell">
-					<a class="mui-navigate-right">3</a>
+					<a class="mui-navigate-right" id="dsfdl">第三方登录</a>
 				</li>
 				<li class="mui-table-view-cell">
 					<a class="mui-navigate-right">4</a>
@@ -72,13 +72,27 @@
 				},
 			})
 		})
-		// 事件绑定
+		// 第三方分享
 		document.getElementById('dsffx').addEventListener('tap',function(){
 			var animationType = "zoom-out";//页面显示动画，默认为”slide-in-right“；
 			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
 			mui.openWindow({
 				url:"share.html",
 				id:"share.html",
+				show:{
+					autoShow:true,//页面loaded事件发生后自动显示，默认为true
+      				aniShow:animationType,
+     				duration:animationTime,
+				},
+			})
+		})
+		// 第三方登录
+		document.getElementById('dsfdl').addEventListener('tap',function(){
+			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
+			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
+			mui.openWindow({
+				url:"login.html",
+				id:"login.html",
 				show:{
 					autoShow:true,//页面loaded事件发生后自动显示，默认为true
       				aniShow:animationType,
