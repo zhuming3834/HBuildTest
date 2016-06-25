@@ -168,7 +168,7 @@
 		 */
 		function pullupRefresh() {
 			pageIndex = ++pageIndex;
-			console.log(pageIndex);
+			console.log('pageIndex = ' + pageIndex);
 			console.log('上拉加载更多');
 			setTimeout(function() {
 				getaData()
@@ -196,7 +196,7 @@
 						showapi_appid: appid,
 						showapi_sign: sign,
 						showapi_timestamp: timestamp,
-						page: ''
+						page: pageIndex
 					},
 					dataType: 'json',
 					type: 'post',  
