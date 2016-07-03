@@ -48,9 +48,11 @@
 			
 			 //创建子页面，首个选项卡页面显示，其它均隐藏；
 			mui.plusReady(function() {
+				launchScreen();
+				
 				var self = plus.webview.currentWebview();
 				for (var i = 0; i < 4; i++) {
-					var temp = {};
+					var temp = {}; 
 					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
 					if (i > 0) {
 						sub.hide();
@@ -100,6 +102,31 @@
 					defaultTab.classList.add('mui-active');
 				}
 			});
+			
+	function launchScreen() {
+		//读取本地存储，检查是否为首次启动
+		var showGuide = plus.storage.getItem("lauchFlag");
+		if(showGuide){ 
+			//有值，说明已经显示过了，无需显示；
+			//关闭splash页面；
+			plus.navigator.closeSplashscreen();
+			plus.navigator.setFullscreen(false);
+		}else{
+			//显示启动导航
+			mui.openWindow({
+				id:'guide',
+				url:'template/guide.html',
+				show:{
+					aniShow:'none'
+				},
+				waiting:{
+					autoShow:false
+				}
+			});
+		}
+	}
+			
+			
 		</script>
 	</body>
 

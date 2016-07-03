@@ -30,7 +30,7 @@
 		</style>
 	</head>
 	<body>
-		<header class="mui-bar mui-bar-nav black">
+		<header class="mui-bar mui-bar-nav white">
 			<h1 class="mui-title">首页</h1>
 		</header>
 		<div class="mui-content">
@@ -120,6 +120,11 @@
 		});
 		/**/
 		mui.plusReady(function() {
+//			launchScreen();
+			// 设置状态栏 颜色
+			plus.navigator.setStatusBarBackground("#FFFFFF");
+				// 设置状态栏 样式
+			plus.navigator.setStatusBarStyle('UIStatusBarStyleDefault');
 			swiperTest = document.getElementById('swiperTest');
 			getaData();
 		})
@@ -189,7 +194,27 @@
 			});
 		}		
 	
-	
-		
+//	function launchScreen() {
+//		//读取本地存储，检查是否为首次启动
+//		var showGuide = plus.storage.getItem("lauchFlag");
+//		if(showGuide){
+//			//有值，说明已经显示过了，无需显示；
+//			//关闭splash页面；
+//			plus.navigator.closeSplashscreen();
+//			plus.navigator.setFullscreen(false);
+//		}else{
+//			//显示启动导航
+//			mui.openWindow({
+//				id:'guide',
+//				url:'guide.html',
+//				show:{
+//					aniShow:'none'
+//				},
+//				waiting:{
+//					autoShow:false
+//				}
+//			});
+//		}
+//	}
 	</script>
 </html>
