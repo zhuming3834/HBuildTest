@@ -102,6 +102,9 @@
 		 * 分享操作
 		 */
 		function shareAction(id, ex) {
+			console.log('id = ' + id);
+			console.log('ex = ' + ex);
+			console.log('shares[id]' + shares[id]);
 			var s = null;
 			if (!id || !(s = shares[id])) {
 				outLine("无效的分享服务！");
@@ -153,6 +156,8 @@
 				}, {
 					id: "qq"   /*QQ好友*/
 				},{
+					id: "tencentweibo"   /*腾讯微博*/
+				},{
 					id: "sinaweibo"  /*新浪微博*/
 				}],
 				bts = [{
@@ -162,6 +167,8 @@
 				}, {
 					title: "分享到QQ"
 				}, {
+					title: "分享到腾讯微博"
+				}, {
 					title: "分享到新浪微博"
 				}];
 			plus.nativeUI.actionSheet({
@@ -170,6 +177,7 @@
 				},
 				function(e) {
 					var i = e.index;
+					console.log('i = ' + i);
 					if (i > 0) {
 						shareAction(ids[i - 1].id, ids[i - 1].ex);
 					}
