@@ -4,7 +4,7 @@
 		"iPhone",
 		"iPad"
 	],
-	"id": "H5F0B9563",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"id": "H5BF7DE01",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "HBuildTest",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0.0",/*应用版本名称*/
@@ -109,7 +109,7 @@
 		"Share": {},
 		"OAuth": {},
 		"Push": {},
-		"Payment": {},
+		"Payment": {"description": "管理支付插件"},
 		"Statistic": {}
 	},
 	"plus": {
@@ -138,7 +138,7 @@
 						"description": "可选，微信分享"
 					},"tencent":{"appkey":"801307650","appsecret":"ae36f4ee3946e1cbb98d6965b0b2ff5c","redirect_uri":"http://www.sharesdk.cn","description":"可选，腾讯微博分享"}
 				},
-				"payment": {},
+				"payment": {"weixin":{"description":"微信支付","appid":"wx2d9f92094e649f74"},"alipay":{"description":"阿里支付","scheme":""}},
 				"oauth": {
 					"qq": {
 						"appid": "100371282"
