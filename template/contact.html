@@ -50,9 +50,9 @@
 				<li class="mui-table-view-cell"> 
 					<a class="mui-navigate-right" id="ewmsc">二维码生成</a>
 				</li>
-				<!--<li class="mui-table-view-cell"> 
-					<a class="mui-navigate-right" id="iscroll">iscroll</a>
-				</li>-->
+				<li class="mui-table-view-cell"> 
+					<a class="mui-navigate-right" id="readQrcode">二维码扫描</a>
+				</li>
 			</ul>
 		</div>
 	</body>
@@ -152,19 +152,19 @@
 				},
 			})
 		})  	
-		// 二维码生成
-		document.getElementById('iscroll').addEventListener('tap',function(){
+		// 二维码扫描
+		document.getElementById('readQrcode').addEventListener('tap',function(){
 			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
 			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
 			mui.openWindow({
-				url:"iScroll.html",
-				id:"iScroll.html",
+				url:"readQrcode.html",
+				id:"readQrcode.html",
 				show:{
 					autoShow:true,//页面loaded事件发生后自动显示，默认为true
       				aniShow:animationType,
      				duration:animationTime,
 				},
 			})
-		})  	
+		})  
 	</script>
 </html>
