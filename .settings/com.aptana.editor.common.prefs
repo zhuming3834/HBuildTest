@@ -1,0 +1,4 @@
+com.aptana.editor.common.px2remEnable=true
+com.aptana.editor.common.px2remProportion=40
+eclipse.preferences.version=1
+selectUserAgents=com.pandora.projects.ui.MKeyNature\:Android,Android-h5+,Chrome,Mozilla,IE,Safari/iOS,IOS-h5+,Safari
