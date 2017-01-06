@@ -257,15 +257,23 @@
 				],
 				"refer": [
 					"template/imageView.html",
+<<<<<<< HEAD
 					"template/map.html",
 					"template/login.html"
+=======
+					"template/readQrcode.html",
+					"template/qrcode.html",
+					"template/pay.html",
+					"template/share.html"
+>>>>>>> origin/master
 				],
 				"priority": 0
 			},
 			"template/chat.html": {
 				"resources": [
 					"js/mui.js",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"js/tools.js"
 				],
 				"refer": [
 					"template/detail.html"
@@ -276,7 +284,8 @@
 				"resources": [
 					"js/mui.min.js",
 					"fonts/mui.ttf",
-					"css/mui.min.css"
+					"css/mui.min.css",
+					"css/app.css"
 				],
 				"refer": [],
 				"priority": 0
@@ -289,9 +298,13 @@
 					"images/yuantiao.jpg",
 					"images/shuijiao.jpg",
 					"js/swiper-3.3.1.min.js",
-					"css/swiper-3.3.1.min.css"
+					"css/swiper-3.3.1.min.css",
+					"css/swiper-3.4.0.min.css",
+					"js/swiper-3.4.0.min.js"
 				],
-				"refer": [],
+				"refer": [
+					"template/detail.html"
+				],
 				"priority": 0
 			},
 			"template/imageView.html": {
@@ -330,6 +343,72 @@
 					"images/icon-weixin.png",
 					"images/Icon@2x.png",
 					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/guide.html": {
+				"resources": [
+					"images/index.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/setting.html": {
+				"resources": [
+					"images/shuijiao.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/readQrcode.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/qrcode.html": {
+				"resources": [
+					"js/jquery-1.8.3.min.js",
+					"js/mui.min.js",
+					"css/app.css",
+					"css/mui.min.css",
+					"js/jquery.qrcode.min.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/pay.html": {
+				"resources": [
+					"js/tools.js",
+					"js/mui.zoom.js",
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"images/alipay.jpg",
+					"css/mui.min.css",
+					"js/mui.previewimage.js",
+					"images/icon-weixin.png",
+					"css/mui.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/share.html": {
+				"resources": [
+					"js/mui.zoom.js",
+					"js/mui.previewimage.js",
+					"css/mui.css",
+					"js/tools.js",
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0

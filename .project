@@ -40,7 +40,11 @@
 			</matcher>
 		</filter>
 		<filter>
+<<<<<<< HEAD
 			<id>1483421704824</id>
+=======
+			<id>1477709789276</id>
+>>>>>>> origin/master
 			<name></name>
 			<type>26</type>
 			<matcher>

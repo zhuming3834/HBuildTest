@@ -21,14 +21,26 @@
 		],
 		"refer": [
 			"template/imageView.html",
+<<<<<<< HEAD
 			"template/map.html",
 			"template/login.html"
+=======
+			"template/readQrcode.html",
+			"template/qrcode.html",
+			"template/pay.html",
+			"template/share.html"
+>>>>>>> origin/master
 		]
 	},
 	"template/chat.html": {
 		"resources": [
 			"js/mui.js",
+<<<<<<< HEAD
 			"css/mui.min.css"
+=======
+			"css/mui.min.css",
+			"js/tools.js"
+>>>>>>> origin/master
 		],
 		"refer": [
 			"template/detail.html"
@@ -38,9 +50,15 @@
 		"resources": [
 			"js/mui.min.js",
 			"fonts/mui.ttf",
+<<<<<<< HEAD
 			"css/mui.min.css"
 		],
 		"refer": []
+=======
+			"css/mui.min.css",
+			"css/app.css"
+		]
+>>>>>>> origin/master
 	},
 	"template/about.html": {
 		"resources": [
@@ -50,26 +68,52 @@
 			"images/yuantiao.jpg",
 			"images/shuijiao.jpg",
 			"js/swiper-3.3.1.min.js",
+<<<<<<< HEAD
 			"css/swiper-3.3.1.min.css"
 		],
 		"refer": []
+=======
+			"css/swiper-3.3.1.min.css",
+			"css/swiper-3.4.0.min.css",
+			"js/swiper-3.4.0.min.js"
+		],
+		"refer": [
+			"template/detail.html"
+		]
+>>>>>>> origin/master
 	},
 	"template/imageView.html": {
 		"resources": [
 			"js/mui.zoom.js",
 			"js/mui.previewimage.js",
+<<<<<<< HEAD
 			"css/mui.css",
 			"css/imageview.css"
 		],
 		"refer": []
+=======
+			"css/mui.css"
+		]
+>>>>>>> origin/master
 	},
 	"template/guide.html": {
 		"resources": [
 			"images/index.png"
+<<<<<<< HEAD
 		],
 		"refer": []
 	},
 	"template/map.html": {
+=======
+		]
+	},
+	"template/setting.html": {
+		"resources": [
+			"images/shuijiao.jpg"
+		]
+	},
+	"template/readQrcode.html": {
+>>>>>>> origin/master
 		"resources": [
 			"js/mui.min.js",
 			"css/app.css",
@@ -77,6 +121,7 @@
 			"css/mui.min.css"
 		]
 	},
+<<<<<<< HEAD
 	"template/login.html": {
 		"resources": [
 			"js/mui.zoom.js",
@@ -87,5 +132,42 @@
 			"images/Icon@2x.png",
 			"css/mui.css"
 		]
+=======
+	"template/qrcode.html": {
+		"resources": [
+			"js/jquery-1.8.3.min.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"css/mui.min.css",
+			"js/jquery.qrcode.min.js",
+			"fonts/mui.ttf"
+		]
+	},
+	"template/pay.html": {
+		"resources": [
+			"js/tools.js",
+			"js/mui.zoom.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"images/alipay.jpg",
+			"css/mui.min.css",
+			"js/mui.previewimage.js",
+			"images/icon-weixin.png",
+			"css/mui.css"
+		]
+	},
+	"template/share.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"js/mui.previewimage.js",
+			"css/mui.css",
+			"js/tools.js",
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+>>>>>>> origin/master
 	}
 }
