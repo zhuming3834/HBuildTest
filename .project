@@ -6,12 +6,12 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
-			<name>com.pandora.projects.ui.MKeyBuilder</name>
+			<name>com.aptana.ide.core.unifiedBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>com.aptana.ide.core.unifiedBuilder</name>
+			<name>com.pandora.projects.ui.MKeyBuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -40,11 +40,7 @@
 			</matcher>
 		</filter>
 		<filter>
-<<<<<<< HEAD
 			<id>1483421704824</id>
-=======
-			<id>1477709789276</id>
->>>>>>> origin/master
 			<name></name>
 			<type>26</type>
 			<matcher>
