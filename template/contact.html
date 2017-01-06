@@ -50,6 +50,12 @@
 				<li class="mui-table-view-cell"> 
 					<a class="mui-navigate-right" id="ewmsc">二维码生成</a>
 				</li>
+				<li class="mui-table-view-cell"> 
+					<a class="mui-navigate-right" id="geolocation">定位</a>
+				</li>
+				<li class="mui-table-view-cell"> 
+					<a class="mui-navigate-right" id="map">map</a>
+				</li>
 			</ul>
 		</div>
 	</body>
@@ -142,6 +148,34 @@
 			mui.openWindow({
 				url:"qrcode.html",
 				id:"qrcode.html",
+				show:{
+					autoShow:true,//页面loaded事件发生后自动显示，默认为true
+      				aniShow:animationType,
+     				duration:animationTime,
+				},
+			})
+		})  
+		// 位置
+		document.getElementById('geolocation').addEventListener('tap',function(){
+			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
+			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
+			mui.openWindow({
+				url:"geolocation.html",
+				id:"geolocation.html",
+				show:{
+					autoShow:true,//页面loaded事件发生后自动显示，默认为true
+      				aniShow:animationType,
+     				duration:animationTime,
+				},
+			})
+		})  	
+		// map
+		document.getElementById('map').addEventListener('tap',function(){
+			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
+			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
+			mui.openWindow({
+				url:"map.html",
+				id:"map.html",
 				show:{
 					autoShow:true,//页面loaded事件发生后自动显示，默认为true
       				aniShow:animationType,

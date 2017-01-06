@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/app.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav white">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">位置</h1>
+		</header>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		var posi = null;
+		mui.plusReady(function() {
+			posi = plus.geolocation.getCurrentPosition( function ( p ) {
+				console.log( "Geolocation\nLatitude:" + p.coords.latitude + "\nLongitude:" + p.coords.longitude + "\nAltitude:" + p.coords.altitude );
+				console.log("street = " + p.address.street);
+				console.log("poiName = " + p.address.poiName);
+				console.log("coordsType = " + p.coordsType);
+				console.log("timestamp = " + p.timestamp);
+				console.log("addresses = " + p.addresses);
+			}, function ( e ) {
+				console.log( "Geolocation error: " + e.message );
+			},{enableHighAccuracy: true}); 
+		});
+		mui.back = function(){
+			var btn = ["确定","取消"];
+			mui.confirm('确认关闭当前窗口？','Hello MUI',btn,function(e){
+				if(e.index==0){
+					// 关闭位置监听  并返回
+					plus.geolocation.clearWatch( posi );
+					mui.currentWebview.close();
+				}
+			});
+		}
+	</script>
+</html>

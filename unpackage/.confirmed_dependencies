@@ -1,58 +1,91 @@
 {
-  "index.html": {
-    "resources": [
-      "js/mui.min.js",
-      "fonts/mui.ttf",
-      "css/mui.min.css",
-      "template/about.html"
-    ],
-    "refer": [
-      "template/setting.html",
-      "template/contact.html",
-      "template/chat.html",
-      "template/about.html"
-    ]
-  },
-  "template/contact.html": {
-    "resources": [
-      "images/60x60.gif"
-    ],
-    "refer": [
-      "template/imageView.html"
-    ]
-  },
-  "template/chat.html": {
-    "resources": [
-      "js/mui.js",
-      "css/mui.min.css"
-    ],
-    "refer": [
-      "template/detail.html"
-    ]
-  },
-  "template/detail.html": {
-    "resources": [
-      "js/mui.min.js",
-      "fonts/mui.ttf",
-      "css/mui.min.css"
-    ]
-  },
-  "template/about.html": {
-    "resources": [
-      "js/tools.js",
-      "images/cbd.jpg",
-      "images/muwu.jpg",
-      "images/yuantiao.jpg",
-      "images/shuijiao.jpg",
-      "js/swiper-3.3.1.min.js",
-      "css/swiper-3.3.1.min.css"
-    ]
-  },
-  "template/imageView.html": {
-    "resources": [
-      "js/mui.zoom.js",
-      "js/mui.previewimage.js",
-      "css/mui.css"
-    ]
-  }
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"template/about.html",
+			"css/app.css"
+		],
+		"refer": [
+			"template/setting.html",
+			"template/contact.html",
+			"template/chat.html",
+			"template/about.html",
+			"template/guide.html"
+		]
+	},
+	"template/contact.html": {
+		"resources": [
+			"images/60x60.gif"
+		],
+		"refer": [
+			"template/imageView.html",
+			"template/map.html",
+			"template/login.html"
+		]
+	},
+	"template/chat.html": {
+		"resources": [
+			"js/mui.js",
+			"css/mui.min.css"
+		],
+		"refer": [
+			"template/detail.html"
+		]
+	},
+	"template/detail.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		],
+		"refer": []
+	},
+	"template/about.html": {
+		"resources": [
+			"js/tools.js",
+			"images/cbd.jpg",
+			"images/muwu.jpg",
+			"images/yuantiao.jpg",
+			"images/shuijiao.jpg",
+			"js/swiper-3.3.1.min.js",
+			"css/swiper-3.3.1.min.css"
+		],
+		"refer": []
+	},
+	"template/imageView.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"js/mui.previewimage.js",
+			"css/mui.css",
+			"css/imageview.css"
+		],
+		"refer": []
+	},
+	"template/guide.html": {
+		"resources": [
+			"images/index.png"
+		],
+		"refer": []
+	},
+	"template/map.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
+		]
+	},
+	"template/login.html": {
+		"resources": [
+			"js/mui.zoom.js",
+			"images/icon-qq.png",
+			"images/icon-sina.png",
+			"js/mui.previewimage.js",
+			"images/icon-weixin.png",
+			"images/Icon@2x.png",
+			"css/mui.css"
+		]
+	}
 }
