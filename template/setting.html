@@ -175,56 +175,56 @@
 			})
 		};
 		
-		//上传头像图片
+		//上传头像图片 
 		function uploadHead(imgPath) {
 			console.log("imgPath = " + imgPath);
-			mainImage.src = imgPath;
+//			mainImage.src = imgPath;
 			mainImage.style.width = "60px";
 			mainImage.style.height = "60px";
 			
 			var image = new Image();
 			image.src = imgPath;
-			image.onload = function() {
-				var imgData = getBase64Image(image);
+			image.onload = function() {  
+				var imageData = getBase64Image(image);
 				/*在这里调用上传接口*/
-//				mui.ajax("图片上传接口", {
-//					data: {
-//						
-//					},
-//					dataType: 'json',
-//					type: 'post',
-//					timeout: 10000,
-//					success: function(data) {
-//						console.log('上传成功');
-//					},
-//					error: function(xhr, type, errorThrown) {
-//						mui.toast('网络异常，请稍后再试！');
-//					}
-//				});
+				var url1 = "http://192.168.65.72:3000/upload";
+				var url2 = "http://101.200.85.8:3000/upload";
+				mui.ajax(url1, {
+					data: {
+						imgData: imageData // 图片数据流
+					},
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						if (data.status == 100 ) {
+							var btnArray = ['否', '是'];
+							mui.confirm('是否修改', '头像上传成功！', btnArray, function(e) {
+								if (e.index == 1) {
+									updateHeadImage(data.imageUrl);
+								} else {
+									info.innerText = 'MUI没有得到你的认可，继续加油'
+								}
+							})
+						}
+						console.log(data.msg);
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast('网络异常，请稍后再试！');
+					}
+				});
 			}
 	}
 		//将图片压缩转成base64
 		function getBase64Image(img) {
 			var canvas = document.createElement("canvas");
 			var width = img.width;
-			var height = img.height;
-			// calculate the width and height, constraining the proportions
-			if (width > height) {
-				if (width > 100) {
-					height = Math.round(height *= 100 / width);
-					width = 100;
-				}
-			} else {
-				if (height > 100) {
-					width = Math.round(width *= 100 / height);
-					height = 100;
-				}
-			}
+			var height = img.height;		
 			canvas.width = width;   /*设置新的图片的宽度*/
 			canvas.height = height; /*设置新的图片的长度*/
 			var ctx = canvas.getContext("2d");
 			ctx.drawImage(img, 0, 0, width, height); /*绘图*/
-			var dataURL = canvas.toDataURL("image/png", 0.8);
+			var dataURL = canvas.toDataURL("image/png", 1);
 			return dataURL.replace("data:image/png;base64,", "");
 		}	
 		
@@ -236,6 +236,31 @@
 			//触发主页面的gohome事件
 			mui.fire(main,'gohome');
 		});
+		
+		function updateHeadImage(headImageUrl){
+			var url1 = 'http://192.168.65.72:3000/user/updateheadimage';
+			var url2 = 'http://101.200.85.8:3000/user/updateheadimage';
+			mui.ajax(url2, {
+				data: {
+					username: 'hgdq',
+					password: '123456',
+					headUrl: headImageUrl
+				},
+				dataType: 'json',
+				type: 'post',
+				timeout: 10000,
+				success: function(data) {
+					if (data.status == 100 ) {
+						mainImage.src = data.head_url;
+					}
+					mui.toast(data.msg);
+				},
+				error: function(xhr, type, errorThrown) {
+					mui.toast('网络异常，请稍后再试！');
+				}
+			});
+		}
+		
 		
 	</script>
 </html>
