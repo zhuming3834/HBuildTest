@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/app.css" />
+	</head>
+	<style>
+		.head-part {
+			padding-top: 10px;
+		}
+		.head-part #auther {
+			height: 30px;
+			line-height: 30px;
+			margin-left: 70px;
+		}
+		.head-part #currentDate {
+			height: 30px;
+			width: 300px;
+			line-height: 30px;
+			margin-left: 70px;
+			font-size: 14px;
+		}
+		.head-part .about-type {
+			float: right;
+			margin-right: 10px;
+			text-align: right;
+			text-overflow:ellipsis;
+			overflow:hidden;
+			white-space:nowrap; 
+			width: 100px;
+			color: red;
+		}
+		#headImage {
+			width: 60px;
+			height: 60px;
+			border-radius: 30px;
+			display: block;
+			position: absolute;
+			float: left;
+		}
+		#titleConcent {
+			height: 110px;
+		}
+		#mainImage {
+			padding-right: 10px;
+			width: 100px;
+			height: 100px;
+			float: right;
+		}
+		#titleConcent1 {
+			margin-top: 10px;
+			height: 100px;
+			text-overflow:ellipsis;
+			overflow:hidden;
+			line-height: 25px;
+		}
+		.mui-scroll .mui-table-view {
+			padding-left: 10px;
+		}
+		.mui-content{
+			padding-top: 44px;
+		}
+		.mui-table-view:before{
+			0px;
+		}
+		.mui-table-view:after{
+			0px;
+		}
+	</style> 
+	<body style="background-color: #D3D3D3;">
+		<header class="mui-bar mui-bar-nav white">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">Node.js爬虫</h1>
+		</header>
+		<div class="mui-content">
+			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<!--数据列表-->
+				<ul class="mui-table-view" style="background-color: white;">
+					<!--<li class="mui-table-view-cell">
+						<a href="#">1111</a>
+					</li>-->
+				</ul>
+			</div>
+		</div>
+		</div>		
+	</body>
+	<script src="../js/mui.js" ></script>
+	<script src="../js/tools.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+	
+	var pageIndex = 1;  // 页数
+	var allPages = 1;   // 总页数
+	var revData = null; // 缓存数据
+
+	var table = document.body.querySelector('.mui-table-view');
+	
+	(function($) {
+		//阻尼系数
+		var deceleration = mui.os.ios ? 0.003 : 0.0009;
+		$('.mui-scroll-wrapper').scroll({
+			bounce: false,
+			indicators: true, //是否显示滚动条
+			deceleration: deceleration
+		});
+	})(mui);
+
+		mui.init({
+			pullRefresh: {
+				container: '#pullrefresh',
+				down: {
+					callback: pulldownRefresh
+				},
+				up: {
+					contentrefresh: '正在加载...',
+					callback: pullupRefresh
+				}
+			}
+		});
+		/**
+		 * 下拉刷新具体业务实现
+		 */
+		function pulldownRefresh() {
+			pageIndex = 1;
+			console.log('下拉刷新');
+			setTimeout(function() {
+				getaData();
+				mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+				mui('#pullrefresh').pullRefresh().refresh(true);
+			}, 1000);
+		}
+		/**
+		 * 上拉加载具体业务实现
+		 */
+		function pullupRefresh() {
+			pageIndex = ++pageIndex;
+			console.log('pageIndex = ' + pageIndex);
+			console.log('上拉加载更多');
+			setTimeout(function() {
+				getaData()
+			}, 1000);
+		}
+		if (mui.os.plus) {
+			mui.plusReady(function() {
+				setTimeout(function() {
+					mui('#pullrefresh').pullRefresh().pulldownLoading(); 
+				}, 500);
+			});
+		} else {
+			mui.ready(function() {
+				mui('#pullrefresh').pullRefresh().pulldownLoading();
+			});
+		}
+		// 获取数据
+		function getaData() {
+			mui.plusReady(function() {
+				mui.ajax('http://101.200.85.8/reptile', {
+					data: {
+						page: pageIndex
+					},
+					dataType: 'json',
+					type: 'get',  
+					timeout: 10000,
+					beforeSend: function(data) {
+						plus.nativeUI.showWaiting(); 
+					},
+					success: function(data) {
+						plus.nativeUI.closeWaiting();  
+						if (data.status == 100) {
+							if (pageIndex == 1) { //下拉刷新需要先清空数据
+								table.innerHTML = '';
+							}
+							allPages = data.allPages;
+							revData = data.articles;
+							mui.each(revData, function(index, item) {
+								var li = document.createElement('li');
+								li.url = item.url; /*详情url*/
+								li.title = item.title; /*详情标题*/
+								li.className = 'mui-table-view-cell'; 
+								li.innerHTML = '<a href="' + item.url + '">' + item.title  + '</a>';					
+								table.appendChild(li, table.firstChild);
+							});
+							if(pageIndex < allPages){
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);	/*能上拉*/
+							}else{
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);/*不能上拉*/
+							}
+						}else{
+							alert(data.status);
+						}
+					},
+					error: function(xhr, type, errerThrown) {
+						mui.toast('网络异常,请稍候再试');
+						plus.nativeUI.closeWaiting();  
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+					}
+				});
+			});
+		}		
+		//链接批量处理 页面跳转  
+		var aniShow = "pop-in";
+		mui('.mui-content').on('tap', 'li', function() {  
+			console.log("detail-url -- >> " + this.url);  
+			console.log("detail-title -- >> " + this.title);
+			mui.openWindow({
+				url: 'detail.html',
+				id: 'detail',
+				show: {
+					aniShow: 'slide-in-right' /*页面切换效果*/
+				},
+				extras: {
+					detailUrl: this.url,
+					detailTitle: this.title
+				},
+			});
+		});		
+		
+		
+		
+	</script>
+</html>
