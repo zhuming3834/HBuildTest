@@ -65,6 +65,9 @@
 				<li class="mui-table-view-cell"> 
 					<a class="mui-navigate-right" id="reptile">Node.js爬虫</a>
 				</li>
+				<li class="mui-table-view-cell"> 
+					<a class="mui-navigate-right" id="vue">Vue</a>
+				</li>
 			</ul>
 		</div>
 	</body>
@@ -227,6 +230,20 @@
 			mui.openWindow({
 				url:"reptile.html",
 				id:"reptile.html",
+				show:{
+					autoShow:true,//页面loaded事件发生后自动显示，默认为true
+      				aniShow:animationType,
+     				duration:animationTime,
+				},
+			})
+		})  
+		// Vue
+		document.getElementById('vue').addEventListener('tap',function(){
+			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
+			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
+			mui.openWindow({
+				url:"vue.html",
+				id:"vue.html",
 				show:{
 					autoShow:true,//页面loaded事件发生后自动显示，默认为true
       				aniShow:animationType,

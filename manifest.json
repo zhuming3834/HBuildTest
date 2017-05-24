@@ -1,4 +1,4 @@
-﻿{
+{
     "@platforms": ["android", "iPhone", "iPad"],
     "id": "H5BF7DE01",/*应用的标识，创建应用时自动生成，勿手动修改*/
     "name": "HBuildTest",/*应用名称，程序桌面图标名称*/
@@ -199,5 +199,150 @@
                 }
             }
         }
-    }
+    },
+	"dependencies": {
+		"pages": {
+			"index.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"template/about.html"
+				],
+				"refer": [
+					"template/setting.html",
+					"template/chatmain.html",
+					"template/contact.html"
+				],
+				"priority": 0
+			},
+			"template/chatmain.html": {
+				"resources": [
+					"template/chat.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/chat.html": {
+				"resources": [
+					"js/mui.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/about.html": {
+				"resources": [
+					"js/tools.js",
+					"images/cbd.jpg",
+					"css/swiper-3.4.0.min.css",
+					"images/muwu.jpg",
+					"images/yuantiao.jpg",
+					"images/shuijiao.jpg",
+					"js/swiper-3.4.0.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"template/contact.html": {
+				"resources": [],
+				"refer": [
+					"template/readQrcode.html",
+					"template/map.html",
+					"template/geolocation.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"css/feedback.css",
+				"效果图/HTML5-分享.gif",
+				"js/mui.picker.min.js",
+				"效果图/HTML5-事件绑定.gif",
+				"js/mui.dtpicker.js",
+				"效果图/IMG_0007.jpg",
+				"效果图/HTML5-图片上传.gif",
+				"js/mui.zoom.js",
+				"template/guide.html",
+				"js/mui.poppicker.js",
+				"template/register.html",
+				"images/60x60.gif",
+				"template/qrcode.html",
+				"js/mui.previewimage.js",
+				"images/icon-sina.png",
+				"css/mui.picker.min.css",
+				"css/mui.imageviewer.css",
+				"js/city.data.js",
+				"template/login.html",
+				"效果图/HTML5-上下拉.gif",
+				"js/mui.view.js",
+				"README.md",
+				"js/beecloud.js",
+				"template/update.html",
+				"效果图/1.png",
+				"js/mui.picker.js",
+				"效果图/HTML5.gif",
+				"js/mui.pullToRefresh.material.js",
+				"css/imageview.css",
+				"template/bangding.html",
+				"css/mui.listpicker.css",
+				"js/mui.lazyload.js",
+				"css/mui.css",
+				"js/city.data-3.js",
+				"js/95516.js",
+				"效果图/re.png",
+				"images/qrcode.png",
+				"js/jquery-1.8.3.min.js",
+				"template/reptile.html",
+				"css/mui.dtpicker.css",
+				"template/shijian.html",
+				"css/mui.picker.all.css",
+				"images/qrcode2.png",
+				"js/update.js",
+				"images/icon-weixin.png",
+				"template/detail.html",
+				"js/feedback.js",
+				"js/arttmpl.js",
+				"效果图/IMG_0006.jpg",
+				"js/mui.imageViewer.js",
+				"template/vue.html",
+				"效果图/HTML5-图片预览.gif",
+				"效果图/HTML5-登录.gif",
+				"images/icon-share.png",
+				"images/Icon@2x.png",
+				"css/icons-extra.css",
+				"js/ad.js",
+				"js/mui.lazyload.img.js",
+				"images/iconfont-tianjia.png",
+				"template/imageView.html",
+				"js/vue.js",
+				"images/logo.png",
+				"js/mui.listpicker.js",
+				"js/webviewGroup.js",
+				"images/1-120921100012.jpg",
+				"js/jquery.qrcode.min.js",
+				"效果图/IMG_0008.jpg",
+				"css/mui.poppicker.css",
+				"images/login-1.png",
+				"效果图/IMG_0005.jpg",
+				"js/mui.indexedlist.js",
+				"效果图/屏幕快照 2016-07-12 上午11.02.24.png",
+				"js/mui.pullToRefresh.js",
+				"images/icon-qq.png",
+				"效果图/HTML5-轮播图.gif",
+				"效果图/IMG_0004.jpg",
+				"css/mui.picker.css",
+				"css/mui.indexedlist.css",
+				"js/mui.picker.all.js",
+				"images/index.png",
+				"效果图/HTML5-广告页面.gif",
+				"images/alipay.jpg",
+				"效果图/IMG_0009.jpg",
+				"template/pay.html",
+				"js/mui.locker.js",
+				"template/share.html"
+			]
+		}
+	}
 }

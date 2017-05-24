@@ -1,1 +1,48 @@
-null
+{
+	"index.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"template/about.html"
+		],
+		"refer": [
+			"template/setting.html",
+			"template/chatmain.html",
+			"template/contact.html",
+			"template/about.html"
+		]
+	},
+	"template/chatmain.html": {
+		"resources": [
+			"template/chat.html"
+		],
+		"refer": [
+			"template/chat.html"
+		]
+	},
+	"template/chat.html": {
+		"resources": [
+			"js/mui.js"
+		]
+	},
+	"template/about.html": {
+		"resources": [
+			"js/tools.js",
+			"images/cbd.jpg",
+			"css/swiper-3.4.0.min.css",
+			"images/muwu.jpg",
+			"images/yuantiao.jpg",
+			"images/shuijiao.jpg",
+			"js/swiper-3.4.0.min.js"
+		]
+	},
+	"template/contact.html": {
+		"refer": [
+			"template/readQrcode.html",
+			"template/map.html",
+			"template/geolocation.html"
+		]
+	}
+}

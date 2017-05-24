@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/mui.css" />
+		<link rel="stylesheet" href="../css/app.css" />
+		<script type="text/javascript" src="../js/vue.js" ></script>
+		<!--App自定义的css-->
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav white">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">vue</h1>
+		</header>
+		<div class="mui-content" id="app">
+			<div class="mui-input-group">
+				<label>用户名</label>
+				<input type="text" class="mui-input-clear" v-model="username" placeholder="用户名" />
+			</div>
+			<div class="mui-input-group">
+				<label>密码</label>
+				<input type="password" v-model="passWord" class="mui-input-password" placeholder="密码" />
+			</div>
+			<div class="mui-input-group">
+				<label>{{username}}</label>
+				<input type="password" v-model="passWord" class="mui-input-password" placeholder="密码" />
+			</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/mui.zoom.js">	</script>
+	<script src="../js/mui.previewimage.js"></script>
+	<script src="../js/tools.js" ></script>
+	<script>
+		var vue = new Vue({
+			el: "#app",
+			data: {
+				username: '',
+				passWord: ''
+			},
+			watch: {
+				username: function(val, oldVal){
+					alert(val);
+				}
+			}
+		})
+	</script>
+</html>

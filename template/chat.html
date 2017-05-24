@@ -60,7 +60,7 @@
 			overflow:hidden;
 			line-height: 25px;
 		}
-		.mui-scroll .mui-table-view {
+		.mui-table-view {
 			padding-left: 10px;
 		}
 		.tableView-cell {
@@ -70,9 +70,6 @@
 			border-bottom-width: 1px;
 			border-bottom-color: #D3D3D3;
 		}
-		.mui-content{
-			padding-top: 44px;
-		}
 		.mui-table-view:before{
 			0px;
 		}
@@ -81,60 +78,27 @@
 		}
 	</style> 
 	<body style="background-color: #D3D3D3;">
-		<header class="mui-bar mui-bar-nav white">
-			<h1 class="mui-title">消息</h1>
-		</header>
-		<div class="mui-content">
-			<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		<!--下拉刷新容器-->
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
 			<div class="mui-scroll">
 				<!--数据列表-->
-				<ul class="mui-table-view" style="background-color: white;">
-					<li class="tableView-cell">
-						<!--<div class="head-part">
-							<img src="../images/shuijiao.jpg"/ id="headImage">
-							<div class="about-auther">
-								<div id="auther">
-									作者名字<span class="about-type">印象派印象</span>
-								</div> 
-								<div id="currentDate">
-									2016-05-16 10:22:12
-								</div>
-							</div>
-						</div>  
-						<div id="titleConcent">
-							<img src="../images/yuantiao.jpg" id="mainImage"/>
-							<div id="titleConcent1">
-								今天是2016.05.16,其实我的内心是奔溃的啊,加班!
-								今天是2016.05.16,其实我的内心是奔溃的啊,加班!
-								今天是 
-							</div>
-						</div>-->
-					</li>
+				<ul class="mui-table-view mui-table-view-chevron">
+					
 				</ul>
 			</div>
 		</div>
-		</div>		
 	</body>
 	<script src="../js/mui.js" ></script>
 	<script src="../js/tools.js" ></script>
 	<script type="text/javascript" charset="utf-8">
 	
-	var pageIndex = 1;  // 页数
-	var allPages = 1;   // 总页数
-	var revData = null; // 缓存数据
-
-	var table = document.body.querySelector('.mui-table-view');
+		var pageIndex = 1;  // 页数
+		var allPages = 1;   // 总页数
+		var revData = null; // 缓存数据
 	
-	(function($) {
-		//阻尼系数
-		var deceleration = mui.os.ios ? 0.003 : 0.0009;
-		$('.mui-scroll-wrapper').scroll({
-			bounce: false,
-			indicators: true, //是否显示滚动条
-			deceleration: deceleration
-		});
-	})(mui);
-
+		var table = document.body.querySelector('.mui-table-view');
+		
+	
 		mui.init({
 			pullRefresh: {
 				container: '#pullrefresh',
@@ -188,65 +152,63 @@
 		// 获取数据
 		function getaData() {
 			var timestamp = getDataStr();
-			mui.plusReady(function() {
-				mui.ajax(baseUrl, {
-					data: {
-						key: '',
-						typeId: '',
-						showapi_appid: appid,
-						showapi_sign: sign,
-						showapi_timestamp: timestamp,
-						page: pageIndex
-					},
-					dataType: 'json',
-					type: 'post',  
-					timeout: 10000,
-					beforeSend: function(data) {
-						plus.nativeUI.showWaiting(); 
-					},
-					success: function(data) {
-						console.log("success");
-						plus.nativeUI.closeWaiting();  
-						if (data.showapi_res_code == 0) {
-							console.log("成功");
-							var dice1 = data.showapi_res_body;
-							var dice2 = dice1.pagebean;
-							var result = '';
-							if (pageIndex == 1) { //下拉刷新需要先清空数据
-								table.innerHTML = '';
-							}
-							allPages = dice2.allPages;
-							revData = dice2.contentlist;
-							mui.each(dice2.contentlist, function(index, item) {
-								var li = document.createElement('li');
-								li.url = item.url; /*详情url*/
-								li.title = item.title; /*详情标题*/
-								li.className = 'tableView-cell'; 
-								
-								li.innerHTML = '<div class="head-part">'
-							    + '<img src="' + item.userLogo + '"/ id="headImage">'
-								+ '<div class="about-auther">'
-								+ '<div id="auther">'
-								+ item.userName 
-								+ '<span class="about-type">' + item.typeName + '</span></div><div id="currentDate">'
-								+ item.date + '</div></div></div><div id="titleConcent">'
-								+ '<img src=" '+ item.contentImg + '" id="mainImage"/><div id="titleConcent1">'
-								+ item.title + '</div></div>';					
-								table.appendChild(li, table.firstChild);
-							});
-							if(pageIndex < allPages){
-								mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);	/*能上拉*/
-							}else{
-								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);/*不能上拉*/
-							}
+			mui.ajax(baseUrl, {
+				data: {
+					key: '',
+					typeId: '',
+					showapi_appid: appid,
+					showapi_sign: sign,
+					showapi_timestamp: timestamp,
+					page: pageIndex
+				},
+				dataType: 'json',
+				type: 'post',  
+				timeout: 10000,
+				beforeSend: function(data) {
+					plus.nativeUI.showWaiting(); 
+				},
+				success: function(data) {
+					console.log("success");
+					plus.nativeUI.closeWaiting();  
+					if (data.showapi_res_code == 0) {
+						console.log("成功");
+						var dice1 = data.showapi_res_body;
+						var dice2 = dice1.pagebean;
+						var result = '';
+						if (pageIndex == 1) { //下拉刷新需要先清空数据
+							table.innerHTML = '';
 						}
-					},
-					error: function(xhr, type, errerThrown) {
-						mui.toast('网络异常,请稍候再试');
-						plus.nativeUI.closeWaiting();  
-						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+						allPages = dice2.allPages;
+						revData = dice2.contentlist;
+						mui.each(dice2.contentlist, function(index, item) {
+							var li = document.createElement('li');
+							li.url = item.url; /*详情url*/
+							li.title = item.title; /*详情标题*/
+							li.className = 'tableView-cell'; 
+							
+							li.innerHTML = '<div class="head-part">'
+						    + '<img src="' + item.userLogo + '"/ id="headImage">'
+							+ '<div class="about-auther">'
+							+ '<div id="auther">'
+							+ item.userName 
+							+ '<span class="about-type">' + item.typeName + '</span></div><div id="currentDate">'
+							+ item.date + '</div></div></div><div id="titleConcent">'
+							+ '<img src=" '+ item.contentImg + '" id="mainImage"/><div id="titleConcent1">'
+							+ item.title + '</div></div>';					
+							table.appendChild(li, table.firstChild);
+						});
+						if(pageIndex < allPages){
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);	/*能上拉*/
+						}else{
+							mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);/*不能上拉*/
+						}
 					}
-				});
+				},
+				error: function(xhr, type, errerThrown) {
+					mui.toast('网络异常,请稍候再试');
+					plus.nativeUI.closeWaiting();  
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+				}
 			});
 		}		
 		// 显示缓存数据
