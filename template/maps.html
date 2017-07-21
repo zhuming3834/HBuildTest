@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/app.css" />
+		<style>
+			#map {
+				width: 100%;
+				position: fixed;
+				top: 0px;
+				bottom: 0px;
+				line-height: 200px;
+				text-align: center;
+				background: #FFFFFF;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav white">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">Maps</h1>
+		</header>
+		<div class="mui-content">
+			<div id="map">地图加载中...</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		var em=null,map=null;
+		mui.plusReady(function() {
+			// 确保DOM解析完成
+			if(!em||!window.plus||map){return};
+			map = new plus.maps.Map("map");  
+			map.centerAndZoom( new plus.maps.Point(114.3052500000,30.5927600000), 12 );
+			map.showUserLocation( true );
+			var marker=new plus.maps.Marker(new plus.maps.Point(114.3052500000,30.5927600000));
+			marker.setIcon("/logo.png");
+			marker.setLabel("HBuilder");
+			var bubble = new plus.maps.Bubble("打造最好的HTML5移动开发工具");
+			marker.setBubble(bubble);
+			map.addOverlay(marker);
+		}); 
+		// DOMContentloaded事件处理
+		document.addEventListener("DOMContentLoaded",function(){
+			em=document.getElementById("map");
+		},false);
+
+	</script>
+</html>

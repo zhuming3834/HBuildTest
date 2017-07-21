@@ -43,6 +43,12 @@
 			"template/readQrcode.html",
 			"template/map.html",
 			"template/geolocation.html"
+		],
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css"
 		]
 	}
 }

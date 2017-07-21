@@ -68,6 +68,12 @@
 				<li class="mui-table-view-cell"> 
 					<a class="mui-navigate-right" id="vue">Vue</a>
 				</li>
+				<li class="mui-table-view-cell"> 
+					<a class="mui-navigate-right" id="maps">Maps</a>
+				</li>
+				<li class="mui-table-view-cell"> 
+					<a class="mui-navigate-right" id="test">test</a>
+				</li>
 			</ul>
 		</div>
 	</body>
@@ -244,6 +250,34 @@
 			mui.openWindow({
 				url:"vue.html",
 				id:"vue.html",
+				show:{
+					autoShow:true,//页面loaded事件发生后自动显示，默认为true
+      				aniShow:animationType,
+     				duration:animationTime,
+				},
+			})
+		})  
+		// Maps
+		document.getElementById('maps').addEventListener('tap',function(){
+			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
+			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
+			mui.openWindow({
+				url:"Maps.html",
+				id:"Maps.html",
+				show:{
+					autoShow:true,//页面loaded事件发生后自动显示，默认为true
+      				aniShow:animationType,
+     				duration:animationTime,
+				},
+			})
+		})  
+		// test
+		document.getElementById('test').addEventListener('tap',function(){
+			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
+			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
+			mui.openWindow({
+				url:"test.html",
+				id:"test.html",
 				show:{
 					autoShow:true,//页面loaded事件发生后自动显示，默认为true
       				aniShow:animationType,

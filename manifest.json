@@ -245,7 +245,12 @@
 				"priority": 0
 			},
 			"template/contact.html": {
-				"resources": [],
+				"resources": [
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
 				"refer": [
 					"template/readQrcode.html",
 					"template/map.html",
