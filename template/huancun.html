@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/app.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav white">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">map</h1>
+		</header>
+		<div class="mui-content">
+			<button id="map" type="button" class="mui-btn mui-btn-primary">安卓清缓存</button>
+			<br />
+			<div id="cach"></div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+
+		var Intent = null,
+            File = null,
+            Uri = null,
+            main = null;
+        var cacheCaleState=false;
+		var os=null;
+		var cacheDomChild = document.getElementById('cach');
+		mui.plusReady(function() {
+		     os=plus.os.name;
+		            if(os == "Android") {
+		                main = plus.android.runtimeMainActivity();
+		                Intent = plus.android.importClass("android.content.Intent");
+		                File = plus.android.importClass("java.io.File");
+		                Uri = plus.android.importClass("android.net.Uri");
+		            }
+		         initCacheSize();
+		
+		      document.getElementById('map').addEventListener('tap', function() {
+		      	plus.cache.calculate(function(size) {
+		            console.log(size);
+		            sizeCache = size;
+		            mui.confirm("您目前的系统缓存为" + parseFloat(sizeCache / (1024 * 1024)).toFixed(2) + "M？", "清除缓存", ["确认", "取消"], function(e) {
+		                if(e.index == 1) {} else {
+		                    plus.cache.clear(function() {
+		                        alert("缓存清除完毕");
+		                    });
+		                }
+		            });
+		        });
+		      });
+//              plus.nativeUI.confirm("确定清除缓存？ 清除后App中的数据将会被清理，用户需重新登录", function(e) {
+//                  if(e.index == 0) {
+//                      console.log("cacheCaleState:"+cacheCaleState);
+//                      if(os=="Android"){
+//                          if(cacheCaleState==true){
+//                          clearAllCache();    
+//                      }else{
+//                          mui.toast("缓存计算中……");
+//                      }
+//                      }else if(os=="iOS"){
+//                          clearCache(function(){
+//                              //再次计算缓存大小
+//                              initCacheSize();
+//                          });
+//                      }
+//                  }
+//              }, "新消息通知", ["确定", "取消"]);
+//          }, false);
+		});
+		function initCacheSize (){
+            var formatedSize;
+            if(os=="Android"){
+                formatedSize=formatSize(calcCache4Android());
+                cacheCaleState=true;
+                cacheDomChild.innerHTML="清除缓存<span class='mui-badge '>" + formatedSize + "</span>";
+            }else if(os=="iOS"){
+                calcCache(function(size) {
+                cacheCaleState=true; 
+                formatedSize=formatSize(size);
+                cacheDomChild.innerHTML="清除缓存<span class='mui-badge '>" + formatedSize + "</span>";
+            });
+            }else{
+                mui.toast("未知的设备类型,无法计算缓存");
+                cacheCaleState=false;
+            }
+        }
+         /**
+         * 计算缓存大小  官方提供方法，用于iOS
+         */
+        function calcCache(callback) {
+            console.log("开始计算缓存大小");
+            var finalSize = -1;
+            plus.cache.calculate(function(size) {
+                var sizeInt = parseInt(size);
+                return callback(size);
+            });
+        }
+        function formatSize(size){
+            var fileSizeString;
+            size = parseInt(size);
+            if(size == 0){
+                fileSizeString = "0B";
+            }else if(size < 1024){
+                fileSizeString = size + "B";
+            }else if(size < 1048576){
+                fileSizeString = (size/1024).toFixed(2) + "KB";
+            }else if (size < 1073741824){
+                console.log("Mb"+size);
+                fileSizeString = (size/1048576).toFixed(2) + "MB";
+                console.log("/ after"+fileSizeString);
+            }else{
+                fileSizeString = (size/1073741824).toFixed(2) + "GB";
+            }
+            return fileSizeString;
+        }
+        function clearCache(callback) {
+            plus.storage.clear();
+            plus.cache.clear(function() {
+                console.log("清除了~~~return");
+                return callback();
+            });
+        }
+        //  安卓端
+        function calcCache4Android() {
+            var cacheSize=0;
+            console.log("start calc android");
+                var sdRoot = main.getCacheDir();
+                var files = plus.android.invoke(sdRoot,"listFiles");
+                 cacheSize += getFolderSize(files); 
+            console.log("android size-->"+cacheSize);
+            return cacheSize;
+        }
+        function getFolderSize(files) {
+            var size = 0;
+            var len = files.length;
+            for(var i = 0; i < len; i++) {
+                // 如果下面还有文件
+                if(files[i].isDirectory()) {
+                    size = size + getFolderSize(files[i]);
+                } else if(!files[i].isHidden()){
+                    size = size + files[i].length();
+                }
+            }
+            return size;
+        }
+	   function clearAllCache4Android(){
+	        console.log("清理所有缓存");
+	        console.log("main"+main.getCacheDir());
+	        var sdRoot = main.getCacheDir();
+	        var files = plus.android.invoke(sdRoot,"listFiles");
+	        deleteDir(files);   
+            //再次计算缓存大小
+            initCacheSize();
+        }
+
+        function deleteDir(files){
+            var len = files.length;
+            console.log("len:"+len);
+            for(var i = 0; i < len; i++) {
+                console.log("delete file dir:"+files[i]);
+                files[i].delete();
+            }
+         }
+        plus.cache.calculate(function(size) {
+            console.log(size)
+            sizeCache = size;
+            mui.confirm("您目前的系统缓存为" + parseFloat(sizeCache / (1024 * 1024)).toFixed(2) + "M？", "清除缓存", ["确认", "取消"], function(e) {
+                if(e.index == 1) {} else {
+                    plus.cache.clear(function() {
+                        alert("缓存清除完毕")
+                    });
+                }
+            });
+        });
+
+	</script>
+</html>

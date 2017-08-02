@@ -15,10 +15,10 @@
 			}
 
 			.mui-table-view:before{
-				0px;
+				/*0px;*/
 			}
 			.mui-table-view:after{
-				0px;
+				/*0px;*/
 			}
 		</style>
 	</head>
@@ -72,7 +72,7 @@
 					<a class="mui-navigate-right" id="maps">Maps</a>
 				</li>
 				<li class="mui-table-view-cell"> 
-					<a class="mui-navigate-right" id="test">test</a>
+					<a class="mui-navigate-right" id="huancun">缓存</a>
 				</li>
 			</ul>
 		</div>
@@ -271,13 +271,13 @@
 				},
 			})
 		})  
-		// test
-		document.getElementById('test').addEventListener('tap',function(){
+		// 缓存
+		document.getElementById('huancun').addEventListener('tap',function(){
 			var animationType = "slide-in-right";//页面显示动画，默认为”slide-in-right“；
 			var animationTime = 100; //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200
 			mui.openWindow({
-				url:"test.html",
-				id:"test.html",
+				url:"huancun.html",
+				id:"huancun.html",
 				show:{
 					autoShow:true,//页面loaded事件发生后自动显示，默认为true
       				aniShow:animationType,
