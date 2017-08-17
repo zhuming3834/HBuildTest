@@ -5,4 +5,4 @@ HBuild新建移动APP
 [湖工电气](http://blog.csdn.net/column/details/hbuild-hybrid-app.html)
 
 ## 或是手机扫描二维码查看：<br />
-![湖工电气](http://o9059a64b.bkt.clouddn.com/1485315474.png)
+![湖工电气](http://o9059a64b.bkt.clouddn.com/1502932608.png)
