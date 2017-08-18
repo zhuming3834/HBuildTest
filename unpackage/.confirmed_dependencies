@@ -46,7 +46,8 @@
 			"template/readQrcode.html",
 			"template/map.html",
 			"template/geolocation.html",
-			"template/huancun.html"
+			"template/huancun.html",
+			"template/reptile.html"
 		],
 		"resources": [
 			"js/mui.min.js",
@@ -61,6 +62,18 @@
 			"css/app.css",
 			"fonts/mui.ttf",
 			"css/mui.min.css"
+		]
+	},
+	"template/reptile.html": {
+		"resources": [
+			"js/tools.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"js/mui.js"
+		],
+		"refer": [
+			"template/detail.html"
 		]
 	}
 }

@@ -257,7 +257,8 @@
 					"template/readQrcode.html",
 					"template/map.html",
 					"template/geolocation.html",
-					"template/huancun.html"
+					"template/huancun.html",
+					"template/reptile.html"
 				],
 				"priority": 0
 			},
@@ -269,6 +270,19 @@
 					"css/mui.min.css"
 				],
 				"refer": [],
+				"priority": 0
+			},
+			"template/reptile.html": {
+				"resources": [
+					"js/tools.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"js/mui.js"
+				],
+				"refer": [
+					"template/detail.html"
+				],
 				"priority": 0
 			}
 		},
@@ -312,7 +326,6 @@
 				"效果图/re.png",
 				"images/qrcode.png",
 				"js/jquery-1.8.3.min.js",
-				"template/reptile.html",
 				"css/mui.dtpicker.css",
 				"template/shijian.html",
 				"css/mui.picker.all.css",
