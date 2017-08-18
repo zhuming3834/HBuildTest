@@ -45,37 +45,36 @@
 		            }
 		         initCacheSize();
 		
-		      document.getElementById('map').addEventListener('tap', function() {
-		      	plus.cache.calculate(function(size) {
-		            console.log(size);
-		            sizeCache = size;
-		            mui.confirm("您目前的系统缓存为" + parseFloat(sizeCache / (1024 * 1024)).toFixed(2) + "M？", "清除缓存", ["确认", "取消"], function(e) {
-		                if(e.index == 1) {} else {
-		                    plus.cache.clear(function() {
-		                        alert("缓存清除完毕");
-		                    });
-		                }
-		            });
-		        });
-		      });
-//              plus.nativeUI.confirm("确定清除缓存？ 清除后App中的数据将会被清理，用户需重新登录", function(e) {
-//                  if(e.index == 0) {
-//                      console.log("cacheCaleState:"+cacheCaleState);
-//                      if(os=="Android"){
-//                          if(cacheCaleState==true){
-//                          clearAllCache();    
-//                      }else{
-//                          mui.toast("缓存计算中……");
-//                      }
-//                      }else if(os=="iOS"){
-//                          clearCache(function(){
-//                              //再次计算缓存大小
-//                              initCacheSize();
-//                          });
-//                      }
-//                  }
-//              }, "新消息通知", ["确定", "取消"]);
-//          }, false);
+//		      document.getElementById('map').addEventListener('tap', function() {
+//		      	plus.cache.calculate(function(size) {
+//		            console.log(size);
+//		            sizeCache = size;
+//		            mui.confirm("您目前的系统缓存为" + parseFloat(sizeCache / (1024 * 1024)).toFixed(2) + "M？", "清除缓存", ["确认", "取消"], function(e) {
+//		                if(e.index == 1) {} else {
+//		                    plus.cache.clear(function() {
+//		                        alert("缓存清除完毕");
+//		                    });
+//		                }
+//		            });
+//		        });
+//		      });
+                plus.nativeUI.confirm("确定清除缓存？ 清除后App中的数据将会被清理，用户需重新登录", function(e) {
+                    if(e.index == 0) {
+                        console.log("cacheCaleState:"+cacheCaleState);
+                        if(os=="Android"){
+                            if(cacheCaleState==true){
+                            clearAllCache4Android();    
+                        }else{
+                            mui.toast("缓存计算中……");
+                        }
+                        }else if(os=="iOS"){
+                            clearCache(function(){
+                                //再次计算缓存大小
+                                initCacheSize();
+                            });
+                        }
+                    }
+                }, "新消息通知", ["确定", "取消"]);
 		});
 		function initCacheSize (){
             var formatedSize;
@@ -171,17 +170,17 @@
                 files[i].delete();
             }
          }
-        plus.cache.calculate(function(size) {
-            console.log(size)
-            sizeCache = size;
-            mui.confirm("您目前的系统缓存为" + parseFloat(sizeCache / (1024 * 1024)).toFixed(2) + "M？", "清除缓存", ["确认", "取消"], function(e) {
-                if(e.index == 1) {} else {
-                    plus.cache.clear(function() {
-                        alert("缓存清除完毕")
-                    });
-                }
-            });
-        });
+//      plus.cache.calculate(function(size) {
+//          console.log(size)
+//          sizeCache = size;
+//          mui.confirm("您目前的系统缓存为" + parseFloat(sizeCache / (1024 * 1024)).toFixed(2) + "M？", "清除缓存", ["确认", "取消"], function(e) {
+//              if(e.index == 1) {} else {
+//                  plus.cache.clear(function() {
+//                      alert("缓存清除完毕")
+//                  });
+//              }
+//          });
+//      });
 
 	</script>
 </html>

@@ -228,7 +228,9 @@
 				"resources": [
 					"js/mui.js"
 				],
-				"refer": [],
+				"refer": [
+					"template/detail.html"
+				],
 				"priority": 0
 			},
 			"template/about.html": {
@@ -254,8 +256,19 @@
 				"refer": [
 					"template/readQrcode.html",
 					"template/map.html",
-					"template/geolocation.html"
+					"template/geolocation.html",
+					"template/huancun.html"
 				],
+				"priority": 0
+			},
+			"template/huancun.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css"
+				],
+				"refer": [],
 				"priority": 0
 			}
 		},
@@ -306,7 +319,6 @@
 				"images/qrcode2.png",
 				"js/update.js",
 				"images/icon-weixin.png",
-				"template/detail.html",
 				"js/feedback.js",
 				"js/arttmpl.js",
 				"效果图/IMG_0006.jpg",
