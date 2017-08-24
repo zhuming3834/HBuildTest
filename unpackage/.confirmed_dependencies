@@ -75,5 +75,14 @@
 		"refer": [
 			"template/detail.html"
 		]
+	},
+	"template/setting.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/app.css",
+			"fonts/mui.ttf",
+			"css/mui.min.css",
+			"images/shuijiao.jpg"
+		]
 	}
 }

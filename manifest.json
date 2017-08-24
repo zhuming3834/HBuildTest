@@ -284,6 +284,17 @@
 					"template/detail.html"
 				],
 				"priority": 0
+			},
+			"template/setting.html": {
+				"resources": [
+					"js/mui.min.js",
+					"css/app.css",
+					"fonts/mui.ttf",
+					"css/mui.min.css",
+					"images/shuijiao.jpg"
+				],
+				"refer": [],
+				"priority": 0
 			}
 		},
 		"idle": {

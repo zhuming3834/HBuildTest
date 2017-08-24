@@ -186,6 +186,7 @@
 			image.src = imgPath;
 			image.onload = function() {  
 				var imageData = getBase64Image(image);
+				console.log("onload");
 				/*在这里调用上传接口*/
 				var url1 = "https://api.hgdqdev.cn/api/upload";
 				mui.ajax(url1, {
@@ -196,11 +197,13 @@
 					type: 'post',
 					timeout: 10000,
 					success: function(data) {
+						console.log(JSON.stringify(data));
 						if (data.status == 100 ) {
 							var btnArray = ['否', '是'];
 							mui.confirm('是否修改', '头像上传成功！', btnArray, function(e) {
 								if (e.index == 1) {
-									updateHeadImage(data.imageUrl);
+//									updateHeadImage(data.imageUrl);
+									mainImage.src = data.imageUrl;
 								} else {
 									info.innerText = 'MUI没有得到你的认可，继续加油'
 								}
