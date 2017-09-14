@@ -1,6 +1,6 @@
 /*showAPI配置参数*/
-var appid = "19297"
-var sign = "cf606a68a01f45d196b0061a1046b5b3"
+var appid = "4954"
+var sign = "d3aadb32265e4742bb6ec5804df06f35"
 var baseUrl = "https://route.showapi.com/582-2?"
 
 
@@ -21,7 +21,7 @@ function getDataStr(){
 	}
 	if(hour < 10){ /*时小于10  就在前面加个0*/
 		hour = String(String(0) + String(hour));
-	}
+	}  
 	if(minute < 10){ /*分小于10  就在前面加个0*/
 		minute = String(String(0) + String(minute));
 	}
